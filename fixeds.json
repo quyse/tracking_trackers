@@ -1,0 +1,11 @@
+{
+  "fetchurl": {
+    "https://live.sysinternals.com/Sysmon64.exe": {
+      "etag": "\"ea564889ecad71:0\"",
+      "last-modified": "Tue, 26 Oct 2021 19:20:26 GMT",
+      "name": "Sysmon64.exe",
+      "sha256": "0ls1vw4xas2576hh95cqkni9d0v8w0z7c9xj6y41h9rhz30wm83j",
+      "url": "https://live.sysinternals.com/Sysmon64.exe"
+    }
+  }
+}
