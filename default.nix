@@ -1,5 +1,6 @@
 { pkgsFun ? import <nixpkgs>
 , pkgs ? pkgsFun {}
+, pkgsNixos ? import <nixos> {}
 , lib ? pkgs.lib
 , toolchain
 , haskellNix ? import <haskellnix> {}
@@ -35,10 +36,14 @@ rec {
   };
 
   run_gateway = { mitmproxyCerts }: let
-    configuration = import ./gateway.nix {
-      inherit mitmproxyCerts;
-    };
-    inherit (pkgs.nixos configuration) config;
+    configuration = [
+      "${pkgsNixos.path}/nixos/modules/profiles/qemu-guest.nix"
+      (import ./gateway.nix {
+        nixpkgs = pkgs;
+        inherit mitmproxyCerts;
+      })
+    ];
+    inherit (pkgsNixos.nixos configuration) config;
     inherit (config.system.build) toplevel;
   in pkgs.writeScript "run_gateway" ''
     ${pkgs.qemu_kvm}/bin/qemu-system-x86_64 \

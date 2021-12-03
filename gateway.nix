@@ -1,4 +1,4 @@
-{ mitmproxyCerts }:
+{ nixpkgs, mitmproxyCerts }:
 { config, pkgs, ... }: let
 
   virtioFs = attrs: {
@@ -10,7 +10,6 @@
   ethExternal = "ens6";
 
 in {
-  imports = [ <nixpkgs/nixos/modules/profiles/qemu-guest.nix> ];
   system.stateVersion = "21.05";
 
   boot.loader.systemd-boot.enable = true;
@@ -79,11 +78,6 @@ in {
   nix.maxJobs = 1;
   nix.buildCores = 1;
 
-  environment.systemPackages = with pkgs; [
-    screen
-    wireshark-cli
-    mitmproxy
-  ];
   services.qemuGuest.enable = true;
 
   systemd.services.mitmproxy = {
@@ -94,7 +88,7 @@ in {
     serviceConfig = {
       Type = "simple";
       ExecStart = ''
-        ${pkgs.mitmproxy}/bin/mitmdump \
+        ${nixpkgs.mitmproxy}/bin/mitmdump \
           --mode transparent \
           --ssl-insecure \
           --set confdir=${mitmproxyCerts} \
@@ -114,7 +108,7 @@ in {
     serviceConfig = {
       Type = "simple";
       ExecStart = pkgs.writeShellScript "tshark" ''
-        ${pkgs.wireshark-cli}/bin/tshark -i ${ethInternal} -w - > /data/traffic.pcap
+        ${nixpkgs.wireshark-cli}/bin/tshark -i ${ethInternal} -w - > /data/traffic.pcap
       '';
     };
   };
