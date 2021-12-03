@@ -2,6 +2,7 @@
 , pkgs ? pkgsFun {}
 , lib ? pkgs.lib
 , toolchain
+, haskellNix ? import <haskellnix> {}
 , windows ? toolchain.windows {}
 , fixedsFile ? ./fixeds.json
 , fixeds ? lib.importJSON fixedsFile
@@ -94,6 +95,20 @@ rec {
       };
     }
   ];
+
+  haskellProject = (pkgsFun haskellNix.nixpkgsArgs).haskell-nix.stackProject {
+    src = ./haskell;
+    modules = [{
+      packages.traffic-parser.components.exes.traffic-parser = {
+        dontStrip = false;
+      };
+    }];
+  };
+  haskellPackages = {
+    inherit (haskellProject.traffic-parser.components.exes)
+      traffic-parser
+    ;
+  };
 
   generateMitmproxyCerts = { seed }: pkgs.runCommandLocal "mitmproxy_certs_${toString seed}" {} ''
     # client replay of empty file - the only (?) way to do one-off mitmproxy run
