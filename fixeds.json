@@ -1,10 +1,10 @@
 {
   "fetchurl": {
     "https://live.sysinternals.com/Sysmon64.exe": {
-      "etag": "\"2c5b3f5aaff2d71:0\"",
-      "last-modified": "Thu, 16 Dec 2021 19:01:37 GMT",
+      "etag": "\"3eee4bd8ce13d81:0\"",
+      "last-modified": "Thu, 27 Jan 2022 22:40:12 GMT",
       "name": "Sysmon64.exe",
-      "sha256": "1d61xj3qrshb88ax4z7v8lwb6csy34vzn73m538nra1nc7j5r68n",
+      "sha256": "1fpk6hlhfz2xnlb3jq0xzxbqc0m023995lfzv12dnq0s5fyhmvgd",
       "url": "https://live.sysinternals.com/Sysmon64.exe"
     }
   }
