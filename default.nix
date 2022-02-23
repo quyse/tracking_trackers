@@ -128,6 +128,10 @@ rec {
   touch = {
     inherit sysmon;
 
+    tools = tools {
+      seed = 1;
+    };
+
     autoUpdateScript = toolchain.autoUpdateFixedsScript fixedsFile;
   };
 }
