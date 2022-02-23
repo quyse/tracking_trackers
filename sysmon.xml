@@ -1,0 +1,11 @@
+<Sysmon schemaversion="4.81">
+  <EventFiltering>
+    <ProcessCreate onmatch="exclude" />
+    <NetworkConnect onmatch="exclude">
+      <Protocol condition="is">udp</Protocol>
+    </NetworkConnect>
+  </EventFiltering>
+  <CheckRevocation>False</CheckRevocation>
+  <DnsLookup>False</DnsLookup>
+  <HashAlgorithms>SHA256</HashAlgorithms>
+</Sysmon>
