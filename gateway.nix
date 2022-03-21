@@ -10,7 +10,7 @@
   ethExternal = "ens6";
 
 in {
-  system.stateVersion = "21.05";
+  system.stateVersion = "21.11";
 
   boot.loader.systemd-boot.enable = true;
 
@@ -114,15 +114,15 @@ in {
   };
 
   users.mutableUsers = false;
-  users.users.demo = {
+  users.users.gateway = {
     isNormalUser = true;
     uid = 1000;
     extraGroups = [ "wheel" ];
-    password = "demo";
+    password = "gateway";
   };
-  users.groups.demo = {
+  users.groups.gateway = {
     gid = 1000;
-    members = ["demo"];
+    members = ["gateway"];
   };
 
   documentation.enable = false;
