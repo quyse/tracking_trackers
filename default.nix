@@ -132,6 +132,8 @@ rec {
       seed = 1;
     };
 
+    inherit (haskellPackages) traffic-parser;
+
     autoUpdateScript = toolchain.autoUpdateFixedsScript fixedsFile;
   };
 }
