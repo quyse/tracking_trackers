@@ -101,7 +101,7 @@ rec {
     }
   ];
 
-  haskellProject = (pkgsFun haskellNix.nixpkgsArgs).haskell-nix.stackProject {
+  haskellProject = haskellNix.pkgs.haskell-nix.stackProject {
     src = ./haskell;
     modules = [{
       packages.traffic-parser.components.exes.traffic-parser = {
