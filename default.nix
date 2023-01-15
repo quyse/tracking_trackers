@@ -3,15 +3,15 @@
 , pkgsNixos ? import <nixos> {}
 , lib ? pkgs.lib
 , toolchain
+, toolchain-windows
 , haskellNix ? import <haskellnix> {}
-, windows ? toolchain.windows {}
 , fixedsFile ? ./fixeds.json
 , fixeds ? lib.importJSON fixedsFile
 }:
 
 rec {
-  windows_disk = { mitmproxyCert }: windows.runPackerStep {
-    disk = windows.initialDisk {};
+  windows_disk = { mitmproxyCert }: toolchain-windows.runPackerStep {
+    disk = toolchain-windows.initialDisk {};
     extraMount = "work";
     extraMountOut = false;
     beforeScript = ''
