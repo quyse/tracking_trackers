@@ -10,7 +10,7 @@
   ethExternal = "ens6";
 
 in {
-  system.stateVersion = "21.11";
+  system.stateVersion = "24.05";
 
   boot.loader.systemd-boot.enable = true;
 
@@ -53,18 +53,45 @@ in {
     }
   ];
   # dhcp server for connected VMs
-  services.dhcpd4 = {
+  services.kea.dhcp4 = {
     enable = true;
-    interfaces = ["${ethInternal}"];
-    extraConfig = ''
-      option subnet-mask 255.255.255.0;
-      option broadcast-address 10.5.5.255;
-      option routers 10.5.5.1;
-      option domain-name-servers 1.1.1.1;
-      subnet 10.5.5.0 netmask 255.255.255.0 {
-        range 10.5.5.100 10.5.5.200;
-      }
-    '';
+    settings = {
+      interfaces-config = {
+        interfaces = ["${ethInternal}"];
+      };
+      lease-database = {
+        name = "/var/lib/kea/dhcp4.leases";
+        type = "memfile";
+      };
+      subnet4 = [
+        {
+          subnet = "10.5.5.0/24";
+          pools = [
+            {
+              pool = "10.5.5.100 - 10.5.5.200";
+            }
+          ];
+          option-data = [
+            {
+              name = "subnet-mask";
+              data = "255.255.255.0";
+            }
+            {
+              name = "broadcast-address";
+              data = "10.5.5.255";
+            }
+            {
+              name = "routers";
+              data = "10.5.5.1";
+            }
+            {
+              name = "domain-name-servers";
+              data = "1.1.1.1";
+            }
+          ];
+        }
+      ];
+    };
   };
   # external interface gets IP from QEMU user stack DHCP
   networking.interfaces."${ethExternal}".useDHCP = true;
@@ -75,8 +102,8 @@ in {
 
   time.timeZone = "UTC";
 
-  nix.maxJobs = 1;
-  nix.buildCores = 1;
+  nix.settings.max-jobs = 1;
+  nix.settings.cores = 1;
 
   services.qemuGuest.enable = true;
 
