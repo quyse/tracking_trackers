@@ -65,6 +65,7 @@ in {
       };
       subnet4 = [
         {
+          id = 1;
           subnet = "10.5.5.0/24";
           pools = [
             {
