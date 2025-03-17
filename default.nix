@@ -25,11 +25,11 @@ rec {
         type = "powershell";
         inline = [
           # install sysmon
-          ''D:\sysmon64.exe -accepteula -i D:\sysmon.xml''
+          ''D:\work\sysmon64.exe -accepteula -i D:\work\sysmon.xml''
           # increase maximum log size for sysmon
           ''$log = Get-WinEvent -ListLog Microsoft-Windows-Sysmon/Operational; $log.MaximumSizeInBytes = 1gb; $log.SaveChanges()''
           # add mitmproxy cert as trusted
-          ''certutil -addstore root D:\mitmproxy-ca-cert.cer''
+          ''certutil -addstore root D:\work\mitmproxy-ca-cert.cer''
         ];
       }
     ];
