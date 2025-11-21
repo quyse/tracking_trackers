@@ -11,6 +11,7 @@
 
 rec {
   windows_disk = { mitmproxyCert }: toolchain-windows.runPackerStep {
+    name = "tracking_trackers_windows";
     disk = toolchain-windows.initialDisk {};
     extraMount = "work";
     extraMountOut = false;
