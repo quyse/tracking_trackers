@@ -133,6 +133,7 @@ rec {
       seed = 1;
     };
 
+    inherit (haskellProject) roots stack-nix;
     inherit (haskellPackages) traffic-parser;
 
     autoUpdateScript = toolchain.autoUpdateFixedsScript fixedsFile;
