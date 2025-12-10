@@ -1,5 +1,4 @@
-{ pkgsFun ? import <nixpkgs>
-, pkgs ? pkgsFun {}
+{ pkgs ? import <nixpkgs> {}
 , pkgsNixos ? import <nixos> {}
 , lib ? pkgs.lib
 , toolchain
